@@ -1,45 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://ha14xwmu7jf2"]
+[gd_scene load_steps=6 format=3 uid="uid://ha14xwmu7jf2"]
 
 [ext_resource type="Script" path="res://agent.gd" id="1_54pvi"]
+[ext_resource type="Texture2D" uid="uid://nrxacju5dbdn" path="res://Agent.png" id="2_n5s0t"]
+[ext_resource type="Script" path="res://CameraControler.gd" id="3_ug4gh"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a3l4a"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nco4j"]
+radius = 13.0
+height = 48.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rq5lk"]
 
 [node name="Scene" type="Node2D"]
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
 script = ExtResource("1_54pvi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CircleShape2D_a3l4a")
+shape = SubResource("CapsuleShape2D_nco4j")
 
-[node name="RayCast2D_1" type="RayCast2D" parent="RigidBody2D"]
-target_position = Vector2(-20, 30)
+[node name="Receptor_1" type="RayCast2D" parent="RigidBody2D"]
+target_position = Vector2(-40, -75)
 
-[node name="RayCast2D_2" type="RayCast2D" parent="RigidBody2D"]
+[node name="Receptor_2" type="RayCast2D" parent="RigidBody2D"]
 material = SubResource("CanvasItemMaterial_rq5lk")
-target_position = Vector2(20, 30)
+target_position = Vector2(40, -75)
 
-[node name="RayCast2D_3" type="RayCast2D" parent="RigidBody2D"]
-target_position = Vector2(0, 40)
+[node name="Receptor_3" type="RayCast2D" parent="RigidBody2D"]
+target_position = Vector2(0, -90)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="RigidBody2D"]
-position = Vector2(0, 54)
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("2_n5s0t")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_ug4gh")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(0, -102)
+gravity_scale = 0.0
 script = ExtResource("1_54pvi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/RigidBody2D"]
-shape = SubResource("CircleShape2D_a3l4a")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("CapsuleShape2D_nco4j")
 
-[node name="RayCast2D_1" type="RayCast2D" parent="RigidBody2D/RigidBody2D"]
-target_position = Vector2(-20, 30)
+[node name="Receptor_1" type="RayCast2D" parent="RigidBody2D2"]
+target_position = Vector2(-40, -75)
 
-[node name="RayCast2D_2" type="RayCast2D" parent="RigidBody2D/RigidBody2D"]
+[node name="Receptor_2" type="RayCast2D" parent="RigidBody2D2"]
 material = SubResource("CanvasItemMaterial_rq5lk")
-target_position = Vector2(20, 30)
+target_position = Vector2(40, -75)
 
-[node name="RayCast2D_3" type="RayCast2D" parent="RigidBody2D/RigidBody2D"]
-target_position = Vector2(0, 40)
+[node name="Receptor_3" type="RayCast2D" parent="RigidBody2D2"]
+target_position = Vector2(0, -90)
 
-[connection signal="tree_entered" from="RigidBody2D/RayCast2D_2" to="RigidBody2D" method="_on_ray_cast_2d_2_tree_entered"]
-[connection signal="tree_entered" from="RigidBody2D/RigidBody2D/RayCast2D_2" to="RigidBody2D/RigidBody2D" method="_on_ray_cast_2d_2_tree_entered"]
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+texture = ExtResource("2_n5s0t")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-403, -282, -403, 321, -219, 321, -219, -282)

@@ -1,15 +1,27 @@
 extends Node
 
+@onready var repceptor_1 = $Receptor_1
+@onready var repceptor_2 = $Receptor_2
+@onready var repceptor_3 = $Receptor_3
 
-# Called when the node enters the scene tree for the first time.
+var speed = 1
+var rot = randf()
+var noise1 = FastNoiseLite.new()
+var noise2 = FastNoiseLite.new()
+var time = randf()
+var energy = 300
+
 func _ready():
-	pass # Replace with function body.
+	noise1.seed = randi()
+	noise2.seed = randi()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
-
-func _on_ray_cast_2d_2_tree_entered():
-	print("asd")
+	speed = noise1.get_noise_1d(time)
+	var velocity = Vector2.UP.rotated(self.rotation) * abs(speed) * 10
+	energy -= abs(speed)
+	self.position += velocity
+	rot = noise2.get_noise_1d(time) * 2 * PI
+	time += delta
+	self.rotation = rot
+	if energy <= 0:
+		self.queue_free()
