@@ -54,7 +54,6 @@ class NeuralNetwork:
 		for neuron_count in layer_sizes:
 			layers.append(Layer.new(input_size, neuron_count))
 			input_size = neuron_count
-		print(layers)
 	
 	func get_output(input: Array) -> Array:
 		var output

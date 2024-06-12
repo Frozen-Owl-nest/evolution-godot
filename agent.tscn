@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://d33xkp643n8mv"]
+
+[ext_resource type="Script" path="res://Scripts/agent.gd" id="1_nei3x"]
+[ext_resource type="Texture2D" uid="uid://nrxacju5dbdn" path="res://Agent.png" id="1_v32ed"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ieqbv"]
+radius = 13.0
+height = 50.0
+
+[node name="Agent" type="RigidBody2D"]
+gravity_scale = 0.0
+can_sleep = false
+freeze_mode = 1
+script = ExtResource("1_nei3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ieqbv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v32ed")
+
+[node name="Receptor_1" type="RayCast2D" parent="."]
+target_position = Vector2(0, -100)
+
+[node name="Receptor_2" type="RayCast2D" parent="."]
+target_position = Vector2(0, -100)
+
+[node name="Receptor_3" type="RayCast2D" parent="."]
+target_position = Vector2(0, -100)
