@@ -12,6 +12,7 @@ gravity_scale = 0.0
 can_sleep = false
 freeze_mode = 1
 script = ExtResource("1_nei3x")
+metadata/energy = 600
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ieqbv")
@@ -23,7 +24,9 @@ texture = ExtResource("1_v32ed")
 target_position = Vector2(0, -100)
 
 [node name="Receptor_2" type="RayCast2D" parent="."]
+rotation = -0.785398
 target_position = Vector2(0, -100)
 
 [node name="Receptor_3" type="RayCast2D" parent="."]
+rotation = 0.785398
 target_position = Vector2(0, -100)

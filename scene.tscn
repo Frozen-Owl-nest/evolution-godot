@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://ha14xwmu7jf2"]
+[gd_scene load_steps=7 format=3 uid="uid://ha14xwmu7jf2"]
 
+[ext_resource type="Script" path="res://field.gd" id="2_xsqtc"]
 [ext_resource type="Script" path="res://Scripts/generator.gd" id="3_p8g3j"]
 [ext_resource type="Script" path="res://Scripts/CameraControler.gd" id="3_ug4gh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk6ju"]
-size = Vector2(239, 202)
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s2gw2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_p45w3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uiudl"]
+radius = 93.5214
 
 [node name="Scene" type="Node2D"]
 
@@ -12,12 +17,25 @@ size = Vector2(239, 202)
 script = ExtResource("3_ug4gh")
 
 [node name="Field" type="Node2D" parent="."]
+material = SubResource("CanvasItemMaterial_s2gw2")
+script = ExtResource("2_xsqtc")
 
 [node name="Area2D" type="Area2D" parent="Field"]
 
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Field/Area2D"]
+position = Vector2(1, 0)
+scale = Vector2(368.417, 372.096)
+mesh = SubResource("SphereMesh_p45w3")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Field/Area2D"]
 scale = Vector2(2, 2)
-shape = SubResource("RectangleShape2D_vk6ju")
+shape = SubResource("CircleShape2D_uiudl")
+debug_color = Color(0, 0.65098, 0.0117647, 0.419608)
 
 [node name="Generator" type="Node" parent="."]
 script = ExtResource("3_p8g3j")
+
+[connection signal="area_entered" from="Field/Area2D" to="Field" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Field/Area2D" to="Field" method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Field/Area2D" to="Field" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Field/Area2D" to="Field" method="_on_area_2d_body_exited"]

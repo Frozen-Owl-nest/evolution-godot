@@ -11,25 +11,24 @@ var speed = 1
 var rot = randf()
 var mutation_rate: float = 1
 var time = randf()
-var energy = 600
 var network = Network.new(4, 3, [2,3])
 
 func _physics_process(delta):
-	var output = network.get_output([int(repceptor_1.is_colliding()), int(repceptor_2.is_colliding()), int(repceptor_3.is_colliding()), energy/1000])
+	var output = network.get_output([int(repceptor_1.is_colliding()), int(repceptor_2.is_colliding()), int(repceptor_3.is_colliding()), self.get_meta('energy')/1000])
 	speed = output[0] * 0.1
 	self.linear_velocity = Vector2.UP.rotated(self.rotation) * abs(speed) * 1000
-	
-	energy -= abs(speed)
+	print(self.rotation)
+	self.set_meta('energy', self.get_meta('energy') - abs(speed))
 	rot = output[1] * 2 * PI
 	time += delta
 	self.rotation = rot
-	if energy <= 0:
+	if self.get_meta('energy') <= 0:
 		self.queue_free()
-	if output[2] > 0.5 and energy > 500:
+	if output[2] > 0.5 and self.get_meta('energy') > 500:
 		var child_instance = Prefab.instantiate()
-		child_instance.position = Vector2(0,0)
+		child_instance.position = self.position
 		self.get_parent().add_child(child_instance)
-		energy -= 500
+		self.set_meta('energy', self.get_meta('energy') - 500)
 
 func mutate():
 	var new_network = network.Duplicate()
