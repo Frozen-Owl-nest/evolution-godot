@@ -4,56 +4,64 @@ class Neuron:
 	var weights: Array
 	var bias: float
 
-	func _init(input_size: int):
-		weights = []
+	static func create_a_random_neuron(input_size: int) -> Neuron:
+		var weight_list = []
+		var bias = randf() * 2 - 1 
+		
 		for i in range(input_size):
-			weights.append(randf() * 2 - 1)
-			bias = randf() * 2 - 1 
+			weight_list.append(randf() * 2 - 1)
+		return Neuron.new(bias, weight_list)
+
+	func _init(bias: float, weights: Array):
+		self.bias = bias
+		self.weights = weights
 
 	func activate(inputs: Array) -> float:
 		var sum = bias
 		for i in range(inputs.size()):
 			sum += inputs[i] * weights[i]
-		return sigmoid(sum)
+		return relu(sum)
 
-	func sigmoid(x: float) -> float:
-		return 1.0 / (1.0 + exp(-x))
-		
-	func _to_string():
-		return str(weights)
+	func relu(x: float) -> float:
+		return max(0.0, x)
 
 class Layer:
-	var input_size: int
 	var neurons: Array = []
-
-	func _init(input_size: int, neuron_count: int):
-		input_size = input_size
+	var signals: Array = []
+	
+	static func create_a_random_layer(input_size: int, neuron_count: int) -> Layer:
+		var neuron_list = []
 		for i in range(neuron_count):
-			neurons.append(Neuron.new(input_size))
+			neuron_list.append(Neuron.create_a_random_neuron(input_size))
+		return Layer.new(neuron_list)
 
-	func feed_forward(inputs: Array) -> float:
-		return neurons[0].activate(inputs)
-		
+	func _init(neuron_list: Array):
+		neurons = neuron_list
+
 	func get_outputs(input: Array) -> Array:
 		var outputs = []
 		for neuron in neurons:
 			outputs.append(neuron.activate(input))
+		signals = outputs
 		return outputs
-		
-	func _to_string():
-		return str(neurons)
 
-class NeuralNetwork:
-	var input_size: int
+class NeuralNetwork extends Node:
+	static var mutation_rate: float = 0.3
+	
 	var layers: Array = []
 
-	func _init(input_size: int, ouput_size: int, hiden_size: Array):
-		input_size = input_size
+	static func create_a_random_network(input_size: int, ouput_size: int, hiden_size: Array):
 		var layer_sizes = hiden_size
+		var layer_list = []
+		
 		layer_sizes.append(ouput_size)
 		for neuron_count in layer_sizes:
-			layers.append(Layer.new(input_size, neuron_count))
+			layer_list.append(Layer.create_a_random_layer(input_size, neuron_count))
 			input_size = neuron_count
+		return NeuralNetwork.new(layer_list)
+		
+	func _init(layer_list : Array):
+		layers = layer_list
 	
 	func get_output(input: Array) -> Array:
 		var output
@@ -62,5 +70,51 @@ class NeuralNetwork:
 			input = output
 		return output
 
-	func feed_forward(inputs: Array) -> float:
-		return layers[0].activate(inputs)
+	func get_signals(input: Array) -> Array:
+		var signals = []
+		for layer in layers:
+			signals.append(layer.get_signals())
+		return signals
+
+	func get_colour():
+		var neurons = []
+		for layer in layers:
+			for neuron in layer.neurons:
+				neurons.append(neuron)
+
+	static func mutate1(network):
+		var new_layers = []
+		for layer in network.layers:
+			var new_neurons = []
+			for neuron in layer.neurons:
+				var new_weights = []
+				var bias = neuron.bias
+				if randf() < NeuralNetwork.mutation_rate:
+					bias += (randf() * 2 - 1)/2/5
+				for weight in neuron.weights:
+					var new_weight = weight
+					if randf() < NeuralNetwork.mutation_rate:
+						new_weight += (randf() * 2 - 1)/2/5 
+					new_weights.append(new_weight)
+				new_neurons.append(Neuron.new(bias, new_weights))
+			new_layers.append(Layer.new(new_neurons))
+		return NeuralNetwork.new(new_layers)
+
+func mutate2(network_1, network_2):
+	var new_layers = []
+	for layers in zip(network_1.layers, network_2.layers):
+		var new_neurons = []
+		for neurons in zip(layers[0].neurons, layers[1].neurons):
+			var new_weights = []
+			var bias = (neurons[0].bias + neurons[1].bias)/2
+			for weights in zip(neurons[0].weights, neurons[1].weights):
+				new_weights.append((weights[0] + weights[1])/2)
+			new_neurons.append(Neuron.new(bias, new_weights))
+		new_layers.append(Layer.new(new_neurons))
+	return NeuralNetwork.new(new_layers)
+	
+func zip(list1, list2):
+	var zipped = []
+	for i in range(min(len(list1), len(list2))):
+		zipped.append([list1[i], list2[i]])
+	return zipped

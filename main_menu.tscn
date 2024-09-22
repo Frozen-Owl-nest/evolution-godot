@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://t7aicc6i3lti"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_ulvc5"]
+[ext_resource type="Script" path="res://Scripts/generator.gd" id="1_up71r"]
+
+[node name="MainMenu" type="Control"]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ulvc5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -109.5
+offset_right = 191.0
+offset_bottom = 109.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "New Simulation"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Load Simulation"
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Quit"
+
+[node name="Generator" type="Node" parent="."]
+script = ExtResource("1_up71r")
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
