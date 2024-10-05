@@ -3,6 +3,7 @@ extends Node
 class Neuron:
 	var weights: Array
 	var bias: float
+	var activated: bool
 
 	static func create_a_random_neuron(input_size: int) -> Neuron:
 		var weight_list = []
@@ -23,7 +24,12 @@ class Neuron:
 		return relu(sum)
 
 	func relu(x: float) -> float:
-		return max(0.0, x)
+		if x > 0:
+			activated = true
+			return x
+		else:
+			activated = false
+			return 0.0
 
 class Layer:
 	var neurons: Array = []
@@ -70,11 +76,12 @@ class NeuralNetwork extends Node:
 			input = output
 		return output
 
-	func get_signals(input: Array) -> Array:
-		var signals = []
+	func get_neurons():
+		var neurons = []
 		for layer in layers:
-			signals.append(layer.get_signals())
-		return signals
+			for neuron in layer.neurons:
+				neurons.append(neuron)
+		return neurons
 
 	func get_colour():
 		var neurons = []

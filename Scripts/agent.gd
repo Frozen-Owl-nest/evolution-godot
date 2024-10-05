@@ -62,3 +62,9 @@ func on_click():
 	panel.get_child(0).get_child(0).text = "  Energy: " + str(int(energy))
 	panel.get_child(0).get_child(1).text = "  Number of children: " + str(number_of_children)
 	panel.get_child(0).get_child(2).text = "  Colour: " + str($Sprite2D.modulate)
+	var neurons = network.get_neurons()
+	for i in range(len(receptors)):
+		panel.get_child(1).get_child(i).set_receptor(receptors[i])
+	for i in range(len(neurons)):
+		panel.get_child(1).get_child(i + len(receptors)).set_neuron(neurons[i])
+		
