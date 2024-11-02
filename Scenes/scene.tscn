@@ -1,26 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://ha14xwmu7jf2"]
+[gd_scene load_steps=6 format=3 uid="uid://ha14xwmu7jf2"]
 
-[ext_resource type="Script" path="res://Scripts/network_board.gd" id="3_lkbix"]
-[ext_resource type="Script" path="res://Scripts/generator.gd" id="3_p8g3j"]
-[ext_resource type="Script" path="res://Scripts/CameraControler.gd" id="3_ug4gh"]
+[ext_resource type="Script" path="res://Scripts/CameraControler.gd" id="1_wcw2e"]
+[ext_resource type="Script" path="res://Scripts/Generator.gd" id="2_cwi3x"]
+[ext_resource type="Script" path="res://Scripts/StatsPanel.gd" id="3_joip5"]
+[ext_resource type="Texture2D" uid="uid://cr3f3dnei7mrh" path="res://Sprites/marker.png" id="4_xtfqd"]
+[ext_resource type="Script" path="res://Scripts/Marker.gd" id="5_ehvi0"]
 
 [node name="Scene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(960, 541)
-script = ExtResource("3_ug4gh")
+script = ExtResource("1_wcw2e")
 
 [node name="Generator" type="Node" parent="."]
-script = ExtResource("3_p8g3j")
+script = ExtResource("2_cwi3x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
 top_level = true
 offset_left = 62.0
 offset_top = 390.0
 offset_right = 509.0
 offset_bottom = 978.0
+script = ExtResource("3_joip5")
 
 [node name="Container" type="VBoxContainer" parent="CanvasLayer/Panel"]
 custom_minimum_size = Vector2(0, 100)
@@ -52,4 +55,8 @@ offset_left = 20.0
 offset_top = 110.0
 offset_right = 425.0
 offset_bottom = 563.0
-script = ExtResource("3_lkbix")
+
+[node name="Marker" type="Sprite2D" parent="CanvasLayer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_xtfqd")
+script = ExtResource("5_ehvi0")

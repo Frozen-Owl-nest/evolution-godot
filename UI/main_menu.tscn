@@ -1,0 +1,297 @@
+[gd_scene load_steps=5 format=3 uid="uid://t7aicc6i3lti"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_susuw"]
+[ext_resource type="Script" path="res://Scripts/Generator.gd" id="2_pc4eh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfvh5"]
+font_size = 23
+
+[sub_resource type="LabelSettings" id="LabelSettings_2w281"]
+font_size = 40
+
+[node name="MainMenu" type="Control"]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_susuw")
+
+[node name="WorldSettingsPanel" type="Panel" parent="."]
+visible = false
+top_level = true
+layout_mode = 0
+offset_left = 92.0
+offset_top = 95.0
+offset_right = 1796.0
+offset_bottom = 1011.0
+
+[node name="GridContainer" type="GridContainer" parent="WorldSettingsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.0
+offset_top = -285.0
+offset_right = 715.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="Label3" type="Label" parent="WorldSettingsPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Initial Number of Agents"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="InitialNumberOfAgentsInput" type="TextEdit" parent="WorldSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 27
+text = "50"
+
+[node name="Label2" type="Label" parent="WorldSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Initial Number of Food"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="InitialNumberOfFoodInput" type="TextEdit" parent="WorldSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 27
+text = "500"
+
+[node name="Label4" type="Label" parent="WorldSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Food Spawn Interval"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="FoodSpawnIntervalInput" type="TextEdit" parent="WorldSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 27
+text = "5"
+
+[node name="Label5" type="Label" parent="WorldSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Spawn Radius"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="SpawnRadiusInput" type="TextEdit" parent="WorldSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 27
+text = "4000"
+
+[node name="Label6" type="Label" parent="WorldSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Food Spawn Interval"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="NumberOfSpawnedFood" type="TextEdit" parent="WorldSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 27
+text = "50"
+
+[node name="Label" type="Label" parent="WorldSettingsPanel"]
+layout_mode = 0
+offset_right = 1706.0
+offset_bottom = 135.0
+text = "World Settings"
+label_settings = SubResource("LabelSettings_2w281")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="Button" parent="WorldSettingsPanel"]
+layout_mode = 0
+offset_left = 1329.0
+offset_top = 762.0
+offset_right = 1560.0
+offset_bottom = 824.0
+theme_override_font_sizes/font_size = 23
+text = "Next"
+
+[node name="CancelButton" type="Button" parent="WorldSettingsPanel"]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 763.0
+offset_right = 1250.0
+offset_bottom = 825.0
+theme_override_font_sizes/font_size = 23
+text = "Cancel"
+
+[node name="AgentSettingsPanel" type="Panel" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 92.0
+offset_top = 95.0
+offset_right = 1796.0
+offset_bottom = 1011.0
+
+[node name="GridContainer" type="GridContainer" parent="AgentSettingsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.0
+offset_top = -285.0
+offset_right = 715.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="Label3" type="Label" parent="AgentSettingsPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Number of Network Layers"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="TextEdit" type="TextEdit" parent="AgentSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+
+[node name="Label2" type="Label" parent="AgentSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Initial Number of Food"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="InitialNumberOfFoodInput" type="OptionButton" parent="AgentSettingsPanel/GridContainer"]
+layout_mode = 2
+toggle_mode = false
+item_count = 4
+popup/item_0/text = "Softsign"
+popup/item_0/id = 0
+popup/item_1/text = "Gaussin Activation"
+popup/item_1/id = 1
+popup/item_2/text = "Sinusoid"
+popup/item_2/id = 2
+popup/item_3/text = "Logistic Activation"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="AgentSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Food Spawn Speed"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="MenuButton" type="MenuButton" parent="AgentSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+flat = false
+item_count = 3
+popup/item_0/text = "Softsign"
+popup/item_0/id = 0
+popup/item_1/text = "Gaussin Activation"
+popup/item_1/id = 1
+popup/item_2/text = "Sinusoid"
+popup/item_2/id = 2
+
+[node name="TextEdit2" type="TextEdit" parent="AgentSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+
+[node name="Label" type="Label" parent="AgentSettingsPanel"]
+layout_mode = 0
+offset_right = 1706.0
+offset_bottom = 135.0
+text = "Agent Settings"
+label_settings = SubResource("LabelSettings_2w281")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Confirm" type="Button" parent="AgentSettingsPanel"]
+layout_mode = 0
+offset_left = 1329.0
+offset_top = 762.0
+offset_right = 1560.0
+offset_bottom = 824.0
+theme_override_font_sizes/font_size = 23
+text = "Confirm"
+
+[node name="BackButton" type="Button" parent="AgentSettingsPanel"]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 763.0
+offset_right = 1250.0
+offset_bottom = 825.0
+theme_override_font_sizes/font_size = 23
+text = "Back"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -109.5
+offset_right = 191.0
+offset_bottom = 109.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NewSimulationButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "New Simulation"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Load Simulation"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Quit"
+
+[node name="Generator" type="Node" parent="."]
+script = ExtResource("2_pc4eh")
+
+[connection signal="text_changed" from="WorldSettingsPanel/GridContainer/InitialNumberOfAgentsInput" to="." method="_on_initial_number_of_agents_input_text_changed"]
+[connection signal="text_changed" from="WorldSettingsPanel/GridContainer/InitialNumberOfFoodInput" to="." method="_on_initial_number_of_food_input_text_changed"]
+[connection signal="text_changed" from="WorldSettingsPanel/GridContainer/FoodSpawnIntervalInput" to="." method="_on_food_spawn_interval_input_text_changed"]
+[connection signal="text_changed" from="WorldSettingsPanel/GridContainer/SpawnRadiusInput" to="." method="_on_spawn_radius_input_text_changed"]
+[connection signal="text_changed" from="WorldSettingsPanel/GridContainer/NumberOfSpawnedFood" to="." method="_on_number_of_spawned_food_text_changed"]
+[connection signal="pressed" from="WorldSettingsPanel/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="WorldSettingsPanel/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="AgentSettingsPanel/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="AgentSettingsPanel/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/NewSimulationButton" to="." method="_on_new_simulation_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/NewSimulationButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

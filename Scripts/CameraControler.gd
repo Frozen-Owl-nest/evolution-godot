@@ -10,17 +10,17 @@ var zoom_speed = 0.1
 
 func _process(delta):
 	var viewport = get_viewport_rect()
-	var mouse_pos = get_local_mouse_position()
+	var scaled_mouse_pos = get_local_mouse_position() * self.zoom
 	var camera_move = Vector2()
-	
-	if mouse_pos.x < viewport.position.x + margin.x && self.position.x > 500:
+
+	if scaled_mouse_pos.x < -viewport.size.x/2 + margin.x && self.position.x > -1000:
 		camera_move.x -= speed
-	elif mouse_pos.x > viewport.position.x + viewport.size.x - margin.x && self.position.x < 1500:
+	elif scaled_mouse_pos.x > viewport.size.x/2 - margin.x && self.position.x < 1000:
 		camera_move.x += speed
 
-	if mouse_pos.y < viewport.position.y + margin.y && self.position.y > 500:
+	if scaled_mouse_pos.y < -viewport.size.y/2 + margin.y && self.position.y > -1000:
 		camera_move.y -= speed
-	elif mouse_pos.y > viewport.position.y + viewport.size.y - margin.y  && self.position.y < 1500:
+	elif scaled_mouse_pos.y > viewport.size.y/2 - margin.y  && self.position.y < 1000:
 		camera_move.y += speed
 
 	position += camera_move * delta

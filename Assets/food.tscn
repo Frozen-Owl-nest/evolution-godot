@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://8qiwm6fde1y7"]
 
 [ext_resource type="Script" path="res://Scripts/food.gd" id="1_52fq6"]
-[ext_resource type="Texture2D" uid="uid://fwe4txym1w62" path="res://Food.png" id="1_rg13d"]
+[ext_resource type="Texture2D" uid="uid://fwe4txym1w62" path="res://Sprites/Food.png" id="1_rg13d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0gkj3"]
 radius = 10.0499

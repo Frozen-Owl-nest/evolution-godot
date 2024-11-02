@@ -4,6 +4,7 @@ class Neuron:
 	var weights: Array
 	var bias: float
 	var activated: bool
+	var activation: Callable
 
 	static func create_a_random_neuron(input_size: int) -> Neuron:
 		var weight_list = []
@@ -16,20 +17,15 @@ class Neuron:
 	func _init(bias: float, weights: Array):
 		self.bias = bias
 		self.weights = weights
+		self.activation = Global.get_activation_method()
 
 	func activate(inputs: Array) -> float:
 		var sum = bias
 		for i in range(inputs.size()):
 			sum += inputs[i] * weights[i]
-		return relu(sum)
-
-	func relu(x: float) -> float:
-		if x > 0:
-			activated = true
-			return x
-		else:
-			activated = false
-			return 0.0
+		var ret = self.activation.call(sum)
+		activated = ret >= 0.5
+		return ret
 
 class Layer:
 	var neurons: Array = []
@@ -101,7 +97,7 @@ class NeuralNetwork extends Node:
 				for weight in neuron.weights:
 					var new_weight = weight
 					if randf() < NeuralNetwork.mutation_rate:
-						new_weight += (randf() * 2 - 1)/2/5 
+						new_weight += (randf() * 2 - 1)/20
 					new_weights.append(new_weight)
 				new_neurons.append(Neuron.new(bias, new_weights))
 			new_layers.append(Layer.new(new_neurons))

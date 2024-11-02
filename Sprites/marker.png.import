@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvty51af6vsa6"
-path="res://.godot/imported/Point.png-20be45dcd7183917b8986b0a52507079.ctex"
+uid="uid://cr3f3dnei7mrh"
+path="res://.godot/imported/marker.png-7a3318697f835ff21991f3b02e662f40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Point.png"
-dest_files=["res://.godot/imported/Point.png-20be45dcd7183917b8986b0a52507079.ctex"]
+source_file="res://Sprites/marker.png"
+dest_files=["res://.godot/imported/marker.png-7a3318697f835ff21991f3b02e662f40.ctex"]
 
 [params]
 

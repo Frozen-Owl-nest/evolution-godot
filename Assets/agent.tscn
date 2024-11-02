@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d33xkp643n8mv"]
 
-[ext_resource type="Script" path="res://Scripts/agent.gd" id="1_nei3x"]
-[ext_resource type="Texture2D" uid="uid://nrxacju5dbdn" path="res://Agent.png" id="1_v32ed"]
+[ext_resource type="Script" path="res://Scripts/Agent.gd" id="1_15pq2"]
+[ext_resource type="Texture2D" uid="uid://nrxacju5dbdn" path="res://Sprites/Agent.png" id="2_vtoem"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ieqbv"]
 radius = 9.0
@@ -15,7 +15,7 @@ height = 24.0223
 gravity_scale = 0.0
 can_sleep = false
 freeze_mode = 1
-script = ExtResource("1_nei3x")
+script = ExtResource("1_15pq2")
 metadata/energy = 600
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -23,7 +23,7 @@ shape = SubResource("CapsuleShape2D_ieqbv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_v32ed")
+texture = ExtResource("2_vtoem")
 
 [node name="Receptor_1" type="RayCast2D" parent="."]
 scale = Vector2(1.5, 1.5)

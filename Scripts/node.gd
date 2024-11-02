@@ -24,11 +24,11 @@ func _process(delta):
 			sprite.modulate = Color.GREEN
 		else:
 			sprite.modulate = Color.RED
-	#elif tracked_receptor:
-		#if tracked_receptor.get_collider():
-			#sprite.modulate = Color.GREEN
-		#else:
-			#sprite.modulate = Color.RED
+	elif tracked_receptor != null:
+		if tracked_receptor.get_collider():
+			sprite.modulate = Color.GREEN
+		else:
+			sprite.modulate = Color.RED
 
 func _on_area_2d_mouse_entered():
 	self.get_child(1).visible = true
