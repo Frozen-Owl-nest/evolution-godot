@@ -1,0 +1,14 @@
+{
+	"activation_method": 3,
+	"initial_number_of_agents": 50,
+	"initial_number_of_food": 500,
+	"mutation_rate": 40,
+	"network_structure": [
+		5,
+		4
+	],
+	"number_of_receptors": 5,
+	"spawn_interval": 5,
+	"spawn_radius": 4000,
+	"spawned_food": 50
+}

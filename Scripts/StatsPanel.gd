@@ -7,7 +7,9 @@ var node = load("res://UI/node.tscn")
 var tracked_agent
 
 func _ready():
-	structure = [5,10,12,1]
+	structure = [Global.number_of_receptors]
+	structure.append_array(Global.network_structure)
+	structure.append(1)
 	var distance_x = (self.get_child(1).get_rect().size.x - len(structure))/(len(structure) + 1)
 	for x in range(len(structure)):
 		var distance_y = (self.get_child(1).get_rect().size.y - structure[x])/(structure[x] + 1)

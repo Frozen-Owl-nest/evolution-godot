@@ -48,12 +48,10 @@ class Layer:
 		return outputs
 
 class NeuralNetwork extends Node:
-	static var mutation_rate: float = 0.3
-	
 	var layers: Array = []
 
 	static func create_a_random_network(input_size: int, ouput_size: int, hiden_size: Array):
-		var layer_sizes = hiden_size
+		var layer_sizes = hiden_size.duplicate()
 		var layer_list = []
 		
 		layer_sizes.append(ouput_size)
@@ -92,11 +90,11 @@ class NeuralNetwork extends Node:
 			for neuron in layer.neurons:
 				var new_weights = []
 				var bias = neuron.bias
-				if randf() < NeuralNetwork.mutation_rate:
+				if randf() < float(Global.mutation_rate)/100:
 					bias += (randf() * 2 - 1)/2/5
 				for weight in neuron.weights:
 					var new_weight = weight
-					if randf() < NeuralNetwork.mutation_rate:
+					if randf() < float(Global.mutation_rate)/100:
 						new_weight += (randf() * 2 - 1)/20
 					new_weights.append(new_weight)
 				new_neurons.append(Neuron.new(bias, new_weights))

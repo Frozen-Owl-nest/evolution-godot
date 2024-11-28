@@ -1,0 +1,16 @@
+{
+	"activation_method": null,
+	"initial_number_of_agents": 50,
+	"initial_number_of_food": 500,
+	"network_structure": [
+		3,
+		4,
+		1,
+		1,
+		1,
+		1
+	],
+	"spawn_interval": 5,
+	"spawn_radius": 4000,
+	"spawned_food": 50
+}

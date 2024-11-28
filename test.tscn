@@ -1,20 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://ha14xwmu7jf2"]
+[gd_scene load_steps=8 format=3 uid="uid://cax37ia2twygg"]
 
-[ext_resource type="Script" path="res://Scripts/CameraControler.gd" id="1_wcw2e"]
-[ext_resource type="Script" path="res://Scripts/Generator.gd" id="2_cwi3x"]
-[ext_resource type="Script" path="res://Scripts/StatsPanel.gd" id="3_joip5"]
-[ext_resource type="Texture2D" uid="uid://cr3f3dnei7mrh" path="res://Sprites/marker.png" id="4_xtfqd"]
-[ext_resource type="Script" path="res://Scripts/Marker.gd" id="5_ehvi0"]
-[ext_resource type="Script" path="res://Scripts/DataCollector.gd" id="6_jwgst"]
-[ext_resource type="Script" path="res://Scripts/PauseMenu.gd" id="6_ln1cx"]
+[ext_resource type="Script" path="res://Scripts/CameraControler.gd" id="1_jhrg4"]
+[ext_resource type="Script" path="res://Scripts/Generator.gd" id="2_oldof"]
+[ext_resource type="Script" path="res://Scripts/StatsPanel.gd" id="3_8fgxk"]
+[ext_resource type="Texture2D" uid="uid://cr3f3dnei7mrh" path="res://Sprites/marker.png" id="4_5ci74"]
+[ext_resource type="Script" path="res://Scripts/Marker.gd" id="5_tvsvv"]
+[ext_resource type="Script" path="res://Scripts/PauseMenu.gd" id="6_bpo4m"]
+[ext_resource type="Script" path="res://Scripts/DataCollector.gd" id="7_myep7"]
 
 [node name="Scene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("1_wcw2e")
+zoom = Vector2(0.8, 0.8)
+script = ExtResource("1_jhrg4")
 
 [node name="Generator" type="Node" parent="."]
-script = ExtResource("2_cwi3x")
+script = ExtResource("2_oldof")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -25,7 +26,7 @@ offset_left = 62.0
 offset_top = 390.0
 offset_right = 509.0
 offset_bottom = 978.0
-script = ExtResource("3_joip5")
+script = ExtResource("3_8fgxk")
 
 [node name="Container" type="VBoxContainer" parent="CanvasLayer/StatsPanel"]
 custom_minimum_size = Vector2(0, 100)
@@ -59,25 +60,26 @@ offset_right = 425.0
 offset_bottom = 563.0
 
 [node name="Marker" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_xtfqd")
-script = ExtResource("5_ehvi0")
+texture = ExtResource("4_5ci74")
+script = ExtResource("5_tvsvv")
 
 [node name="PauseMenu" type="Panel" parent="CanvasLayer"]
 process_mode = 3
 visible = false
-offset_left = 739.0
-offset_top = 417.0
-offset_right = 1182.0
+offset_left = 772.0
+offset_top = 364.0
+offset_right = 1146.0
 offset_bottom = 720.0
-script = ExtResource("6_ln1cx")
+script = ExtResource("6_bpo4m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 2.0
-offset_right = 407.0
-offset_bottom = 297.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 374.0
+offset_bottom = 354.0
 theme_override_constants/separation = 41
 alignment = 1
 
@@ -91,22 +93,32 @@ vertical_alignment = 1
 layout_mode = 2
 text = "Export Data"
 
+[node name="ExportSimulationButton" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Save Simulation"
+
 [node name="QuitButton" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="ExportSimulationDialog" type="FileDialog" parent="CanvasLayer"]
+process_mode = 2
+size = Vector2i(392, 517)
+filters = PackedStringArray("*.tscn")
 
 [node name="ExportDataDialog" type="FileDialog" parent="CanvasLayer"]
 process_mode = 2
 filters = PackedStringArray("*.csv")
 
 [node name="DataCollector" type="Node" parent="."]
-script = ExtResource("6_jwgst")
+script = ExtResource("7_myep7")
 
 [node name="Timer" type="Timer" parent="DataCollector"]
 wait_time = 5.0
-autostart = true
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/ExportDataButton" to="CanvasLayer/PauseMenu" method="_on_export_data_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/ExportSimulationButton" to="CanvasLayer/PauseMenu" method="_on_export_simulation_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/QuitButton" to="CanvasLayer/PauseMenu" method="_on_quit_button_pressed"]
-[connection signal="file_selected" from="CanvasLayer/ExportDataDialog" to="CanvasLayer/PauseMenu" method="_on_export_data_dialog_file_selected"]
+[connection signal="file_selected" from="CanvasLayer/ExportSimulationDialog" to="CanvasLayer/PauseMenu" method="_on_export_simulation_dialog_file_selected"]
+[connection signal="file_selected" from="CanvasLayer/ExportDataDialog" to="Camera2D" method="_on_export_data_dialog_file_selected"]
 [connection signal="timeout" from="DataCollector/Timer" to="DataCollector" method="_on_timer_timeout"]

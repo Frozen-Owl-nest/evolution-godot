@@ -28,9 +28,10 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			zoom = zoom + Vector2(zoom_speed, zoom_speed)
-			zoom.x = max(min_zoom.x, zoom.x)
-			zoom.y = max(min_zoom.y, zoom.y)
+			if zoom.x < 2:
+				zoom = zoom + Vector2(zoom_speed, zoom_speed)
+				zoom.x = max(min_zoom.x, zoom.x)
+				zoom.y = max(min_zoom.y, zoom.y)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom = zoom - Vector2(zoom_speed, zoom_speed)
 			zoom.x = min(max_zoom.x, zoom.x)
@@ -47,6 +48,5 @@ func _input(event):
 					if target.has_method("on_click"):
 						target.call("on_click")
 			else:
-				var panel = get_node("/root/Scene/CanvasLayer/Panel")
+				var panel = get_node("/root/Scene/CanvasLayer/StatsPanel")
 				panel.hide()
-		

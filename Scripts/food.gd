@@ -1,10 +1,15 @@
 extends RigidBody2D
 
+var data_collector
+
 var energy
 var sprite
 var collision_shape
 	
 func _ready():
+	data_collector = get_node("/root/Scene/DataCollector")
+	if data_collector:
+		data_collector.food_list.append(self)
 	sprite = $Sprite2D
 	collision_shape = $CollisionShape2D
 	set_random_energy()
@@ -29,6 +34,8 @@ func subtract_energy(energy_value):
 	"""
 	energy -= energy_value
 	if energy <= 20:
+		if data_collector:
+			data_collector.food_list.erase(self)
 		self.queue_free()
 	sprite = $Sprite2D
 	collision_shape = $CollisionShape2D
