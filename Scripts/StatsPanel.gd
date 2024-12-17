@@ -5,11 +5,12 @@ var structure
 var node = load("res://UI/node.tscn")
 
 var tracked_agent
+var refresh_timer = 0.0 
 
 func _ready():
 	structure = [Global.number_of_receptors]
 	structure.append_array(Global.network_structure)
-	structure.append(1)
+	structure.append(2)
 	var distance_x = (self.get_child(1).get_rect().size.x - len(structure))/(len(structure) + 1)
 	for x in range(len(structure)):
 		var distance_y = (self.get_child(1).get_rect().size.y - structure[x])/(structure[x] + 1)
@@ -22,16 +23,22 @@ func _ready():
 			self.get_child(1).add_child(node_instance)
 			
 func _process(delta):
-	if tracked_agent != null:
-		self.show()
-		self.get_child(0).get_child(0).text = "  Energy: " + str(int(tracked_agent.energy))
-		self.get_child(0).get_child(1).text = "  Number of children: " + str(tracked_agent.number_of_children)
-		self.get_child(0).get_child(2).text = "  Colour: " + str(tracked_agent.get_node("Sprite2D").modulate)
-	else:
-		self.hide()
+	refresh_timer += delta
+	if refresh_timer >= 1:
+		refresh_timer = 0
+		if tracked_agent != null:
+			self.show()
+			self.get_child(0).get_child(0).text = "Age: " + str(int(tracked_agent.age)) + " s"
+			self.get_child(0).get_child(1).text = "Energy: " + str(int(tracked_agent.energy)) + " µcal"
+			self.get_child(0).get_child(2).text = "Energy Change: " + str("%0.3f" % ((tracked_agent.speed + abs(tracked_agent.rotation_change))/(2*delta))) + " µcal/s"
+			self.get_child(0).get_child(3).text = "Number of Children: " + str(tracked_agent.number_of_children)
+			self.get_child(0).get_child(4).text = "Colour: " + str(tracked_agent.get_node("Sprite2D").modulate)
+		else:
+			self.hide()
 
 func set_agent(agent):
 	tracked_agent = agent
+	refresh_timer = 1
 	var neurons = agent.network.get_neurons()
 	for i in range(len(agent.receptors)):
 		self.get_child(1).get_child(i).set_receptor(agent.receptors[i])

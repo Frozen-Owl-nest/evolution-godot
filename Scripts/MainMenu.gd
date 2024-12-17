@@ -23,6 +23,7 @@ func _on_new_simulation_button_pressed():
 
 func _on_cancel_button_pressed():
 	get_node("WorldSettingsPanel").hide()
+	get_node("GeneralSettingsPanel").hide()
 	get_node("OpenScreen").show()
 
 
@@ -103,6 +104,14 @@ func _on_mutation_rate_text_changed():
 	else:
 		Global.mutation_rate = int(text_field.text)
 
+
+func _on_mutation_scale_text_changed():
+	var text_field = get_node("AgentSettingsPanel/MainGridContainer/MutationScale")
+	if !is_number_regex.search(text_field.text) or int(text_field.text) not in range(1,101):
+		text_field.scale = str(Global.mutation_scale)
+	else:
+		Global.mutation_rate = int(text_field.text)
+
 func _on_number_of_layers_input_text_changed():
 	var text_field = get_node("AgentSettingsPanel/MainGridContainer/NumberOfLayersInput")
 	if !is_number_regex.search(text_field.text) or int(text_field.text) not in range(1,6):
@@ -150,6 +159,7 @@ func load_settings():
 	get_node("AgentSettingsPanel/MainGridContainer/NumberOfLayersInput").text = str(len(Global.network_structure))
 	get_node("AgentSettingsPanel/MainGridContainer/NumberOfReceptorsInput").text = str(Global.number_of_receptors)
 	get_node("AgentSettingsPanel/MainGridContainer/MutationRate").text = str(Global.mutation_rate)
+	get_node("AgentSettingsPanel/MainGridContainer/MutationScale").text = str(Global.mutation_scale)
 	
 	var layer_container = get_node("AgentSettingsPanel/LayersGridContainer")
 	for i in range(len(Global.network_structure)):
@@ -181,3 +191,29 @@ func _on_save_settings_dialog_file_selected(path):
 func _on_load_settings_dialog_file_selected(path):
 	Global.load_from_json(path)
 	load_settings()
+
+
+func _on_apply_button_pressed():
+	var screen_mode = get_node("GeneralSettingsPanel/GridContainer/ScreenModeInput").text
+	var resolution = get_node("GeneralSettingsPanel/GridContainer/ResolutionInput").text.split("x")
+	var fps_limit = get_node("GeneralSettingsPanel/GridContainer/FPSLimitInput").text
+	
+	if screen_mode == "Fullscreen":
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	
+	get_window().size = Vector2(int(resolution[0]), int(resolution[1]))
+	if fps_limit == "Off":
+		Engine.max_fps = 1000
+	else:
+		Engine.max_fps = int(fps_limit)
+
+
+func _on_settings_button_pressed():
+	get_node("GeneralSettingsPanel").show()
+	get_node("OpenScreen").hide()
+
+
+func _on_screen_mode_input_item_selected(index):
+	get_node("GeneralSettingsPanel/GridContainer/ResolutionInput").disabled = !index

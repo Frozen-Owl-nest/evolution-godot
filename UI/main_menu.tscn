@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_susuw"]
 [ext_resource type="Script" path="res://Scripts/Generator.gd" id="2_pc4eh"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_xfvh5"]
-font_size = 23
-
 [sub_resource type="LabelSettings" id="LabelSettings_2w281"]
 font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfvh5"]
+font_size = 23
 
 [node name="MainMenu" type="Control"]
 top_level = true
@@ -18,6 +18,134 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_susuw")
+
+[node name="GeneralSettingsPanel" type="Panel" parent="."]
+visible = false
+top_level = true
+layout_mode = 0
+offset_left = 92.0
+offset_top = 95.0
+offset_right = 1796.0
+offset_bottom = 1011.0
+
+[node name="Label" type="Label" parent="GeneralSettingsPanel"]
+layout_mode = 0
+offset_right = 1706.0
+offset_bottom = 135.0
+text = "Settings"
+label_settings = SubResource("LabelSettings_2w281")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="GeneralSettingsPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -714.0
+offset_top = -285.0
+offset_right = 715.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="Label3" type="Label" parent="GeneralSettingsPanel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Window Mode"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="ScreenModeInput" type="OptionButton" parent="GeneralSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 27
+toggle_mode = false
+item_count = 2
+selected = 0
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Window"
+popup/item_1/id = 1
+
+[node name="Label2" type="Label" parent="GeneralSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "Resolution"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="ResolutionInput" type="OptionButton" parent="GeneralSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 27
+disabled = true
+toggle_mode = false
+item_count = 8
+selected = 0
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 1
+popup/item_1/text = "1280x720"
+popup/item_1/id = 0
+popup/item_2/text = "2560x1440"
+popup/item_2/id = 2
+popup/item_3/text = "3840x2160"
+popup/item_3/id = 3
+popup/item_4/text = "800x600"
+popup/item_4/id = 4
+popup/item_5/text = "1024x768"
+popup/item_5/id = 5
+popup/item_6/text = "1280x1024"
+popup/item_6/id = 6
+popup/item_7/text = "1600x1200"
+popup/item_7/id = 7
+
+[node name="Label6" type="Label" parent="GeneralSettingsPanel/GridContainer"]
+layout_mode = 2
+text = "FPS Limit"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="FPSLimitInput" type="OptionButton" parent="GeneralSettingsPanel/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 27
+toggle_mode = false
+item_count = 3
+selected = 0
+popup/item_0/text = "Off"
+popup/item_0/id = 2
+popup/item_1/text = "30"
+popup/item_1/id = 0
+popup/item_2/text = "60"
+popup/item_2/id = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GeneralSettingsPanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 123.0
+offset_top = 332.0
+offset_right = -137.0
+offset_bottom = 386.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="CancelButton" type="Button" parent="GeneralSettingsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Cancel"
+
+[node name="ApplyButton" type="Button" parent="GeneralSettingsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Apply"
 
 [node name="WorldSettingsPanel" type="Panel" parent="."]
 visible = false
@@ -99,7 +227,7 @@ theme_override_font_sizes/font_size = 27
 
 [node name="Label6" type="Label" parent="WorldSettingsPanel/GridContainer"]
 layout_mode = 2
-text = "Food Spawn Interval"
+text = "Number of Spawned Food"
 label_settings = SubResource("LabelSettings_xfvh5")
 
 [node name="NumberOfSpawnedFood" type="TextEdit" parent="WorldSettingsPanel/GridContainer"]
@@ -172,9 +300,9 @@ offset_bottom = 1011.0
 [node name="LayersGridContainer" type="GridContainer" parent="AgentSettingsPanel"]
 layout_mode = 2
 offset_left = 138.0
-offset_top = 442.0
+offset_top = 496.0
 offset_right = 1567.0
-offset_bottom = 726.0
+offset_bottom = 753.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/v_separation = 30
@@ -239,6 +367,20 @@ text = "Mutation Rate"
 label_settings = SubResource("LabelSettings_xfvh5")
 
 [node name="MutationRate" type="TextEdit" parent="AgentSettingsPanel/MainGridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 27
+
+[node name="Label6" type="Label" parent="AgentSettingsPanel/MainGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mutation Scale"
+label_settings = SubResource("LabelSettings_xfvh5")
+
+[node name="MutationScale" type="TextEdit" parent="AgentSettingsPanel/MainGridContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_direction = 3
 layout_mode = 2
@@ -322,16 +464,27 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -191.0
-offset_top = -109.5
+offset_top = -157.0
 offset_right = 191.0
-offset_bottom = 109.5
+offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="OpenScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Main Menu"
+horizontal_alignment = 1
 
 [node name="NewSimulationButton" type="Button" parent="OpenScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "New Simulation"
+
+[node name="SettingsButton" type="Button" parent="OpenScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Settings"
 
 [node name="QuitButton" type="Button" parent="OpenScreen/VBoxContainer"]
 layout_mode = 2
@@ -360,6 +513,10 @@ min_size = Vector2i(400, 500)
 root_subfolder = "Configs"
 filters = PackedStringArray("*.json")
 
+[connection signal="item_selected" from="GeneralSettingsPanel/GridContainer/ScreenModeInput" to="." method="_on_screen_mode_input_item_selected"]
+[connection signal="item_selected" from="GeneralSettingsPanel/GridContainer/FPSLimitInput" to="." method="_on_activation_function_input_item_selected"]
+[connection signal="pressed" from="GeneralSettingsPanel/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="GeneralSettingsPanel/HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="text_changed" from="WorldSettingsPanel/GridContainer/InitialNumberOfAgentsInput" to="." method="_on_initial_number_of_agents_input_text_changed"]
 [connection signal="text_changed" from="WorldSettingsPanel/GridContainer/InitialNumberOfFoodInput" to="." method="_on_initial_number_of_food_input_text_changed"]
 [connection signal="text_changed" from="WorldSettingsPanel/GridContainer/FoodSpawnIntervalInput" to="." method="_on_food_spawn_interval_input_text_changed"]
@@ -372,12 +529,14 @@ filters = PackedStringArray("*.json")
 [connection signal="item_selected" from="AgentSettingsPanel/MainGridContainer/ActivationFunctionInput" to="." method="_on_activation_function_input_item_selected"]
 [connection signal="text_changed" from="AgentSettingsPanel/MainGridContainer/NumberOfReceptorsInput" to="." method="_on_number_of_receptors_input_text_changed"]
 [connection signal="text_changed" from="AgentSettingsPanel/MainGridContainer/MutationRate" to="." method="_on_mutation_rate_text_changed"]
+[connection signal="text_changed" from="AgentSettingsPanel/MainGridContainer/MutationScale" to="." method="_on_mutation_scale_text_changed"]
 [connection signal="text_changed" from="AgentSettingsPanel/MainGridContainer/NumberOfLayersInput" to="." method="_on_number_of_layers_input_text_changed"]
 [connection signal="pressed" from="AgentSettingsPanel/HBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="AgentSettingsPanel/HBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="AgentSettingsPanel/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="AgentSettingsPanel/HBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
 [connection signal="pressed" from="OpenScreen/VBoxContainer/NewSimulationButton" to="." method="_on_new_simulation_button_pressed"]
+[connection signal="pressed" from="OpenScreen/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="OpenScreen/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="confirmed" from="LoadSettingsDialog" to="." method="_on_load_settings_dialog_confirmed"]
 [connection signal="file_selected" from="LoadSettingsDialog" to="." method="_on_load_settings_dialog_file_selected"]

@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://biuy20la7p8x"
+
+[deps]
+
+files=["res://Output/Experiment_60.373.translation"]
+
+source_file="res://Output/Experiment_60.csv"
+dest_files=["res://Output/Experiment_60.373.translation"]
+
+[params]
+
+compress=true
+delimiter=0

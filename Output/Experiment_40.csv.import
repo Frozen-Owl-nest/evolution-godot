@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dl2iselen40h6"
+
+[deps]
+
+files=["res://Output/Experiment_40.359.translation"]
+
+source_file="res://Output/Experiment_40.csv"
+dest_files=["res://Output/Experiment_40.359.translation"]
+
+[params]
+
+compress=true
+delimiter=0

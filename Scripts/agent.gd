@@ -6,23 +6,26 @@ var Network = load("res://Scripts/neuronNetwork.gd").NeuralNetwork
 var Prefab = load("res://Assets/agent.tscn")
 var Food = load("res://Scripts/food.gd")
 
-var speed = 1
+var speed = 0
+var rotation_change = 0
 var energy = 300
+var age = 0
 var number_of_children = 0
-var network = Network.create_a_random_network(Global.number_of_receptors, 1, Global.network_structure)
+var network = Network.create_a_random_network(Global.number_of_receptors, 2, Global.network_structure)
 var bodies_in_area = []
 var receptors = []
 
 func _ready():
 	data_collector = get_node("/root/Scene/DataCollector")
+	var number_of_receptors = Global.number_of_receptors
 	if data_collector:
 		data_collector.agent_list.append(self)
 	self.rotation = randf() * 360
-	for i in range(1, Global.number_of_receptors + 1):
+	for i in range(1, number_of_receptors + 1):
 		var ray = RayCast2D.new()
 		ray.target_position = Vector2(0,-100)
-		if Global.number_of_receptors%2 == 1:
-			ray.rotation_degrees = (i - i % 2) / 2 * 45 * pow(-1, i)
+		if number_of_receptors%2 == 1:
+			ray.rotation_degrees = (i - i % 2) / 2 * 120/number_of_receptors * pow(-1, i)
 		else:
 			ray.rotation_degrees = ((i + 1 - (i+1) % 2) / 2 * 30 - 15)* pow(-1, i)
 		self.add_child(ray)
@@ -31,10 +34,13 @@ func _ready():
 
 func _physics_process(delta):
 	var output = network.get_output(get_receptors_data())
-	speed = 0.05 # output[0] * 0.1
-	linear_velocity = Vector2.UP.rotated(self.rotation) * abs(speed) * 1000
-	energy -= speed * 12
-	rotation += (output[0]*2-1) / 50
+	age += delta
+	speed = output[0]/4 + 0.5
+	rotation_change = (output[1]*2-1) / 5
+	linear_velocity = Vector2.UP.rotated(self.rotation) * speed * 100
+	rotation += rotation_change / 10
+	energy -= (speed + abs(rotation_change*2))/2
+	
 	if energy <= 0:
 		if data_collector:
 			data_collector.agent_list.erase(self)
@@ -43,7 +49,7 @@ func _physics_process(delta):
 		if energy > 600:
 			var child_instance = Prefab.instantiate()
 			child_instance.position = self.position + Vector2(1, 1)
-			child_instance.network = Network.mutate1(network)
+			child_instance.network = network.mutate()
 			var color_mod = Color((randf()*2-1)/16, (randf()*2-1)/16, (randf()*2-1)/16)
 			child_instance.get_node("Sprite2D").modulate = self.get_node("Sprite2D").modulate + color_mod
 			self.get_parent().add_child(child_instance)

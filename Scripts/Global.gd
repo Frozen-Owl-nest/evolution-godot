@@ -6,9 +6,10 @@ var spawn_radius: int = 4000
 var initial_number_of_food: int = 500
 var initial_number_of_agents: int = 50
 var mutation_rate: int = 40
+var mutation_scale: int = 20
 var number_of_receptors: int = 5
 var network_structure: Array = [3, 4]
-var activation_method: int = 0
+var activation_method: int = 3
 
 func get_activation_method() -> Callable:
 	if activation_method == 0:
@@ -58,17 +59,19 @@ func to_dict() -> Dictionary:
 		"initial_number_of_agents": initial_number_of_agents,
 		"activation_method": activation_method,
 		"mutation_rate": mutation_rate,
+		"mutation_scale": mutation_scale,
 		"number_of_receptors": number_of_receptors,
 		"network_structure": network_structure
 	}
 	
 func from_dict(dictionary: Dictionary):
+	initial_number_of_food = dictionary.get("initial_number_of_food")
+	initial_number_of_agents = dictionary.get("initial_number_of_agents")
 	spawned_food = dictionary.get("spawned_food")
 	spawn_interval = dictionary.get("spawn_interval")
 	spawn_radius = dictionary.get("spawn_radius")
-	initial_number_of_food = dictionary.get("initial_number_of_food")
-	initial_number_of_agents = dictionary.get("initial_number_of_agents")
 	activation_method = dictionary.get("activation_method")
 	mutation_rate = dictionary.get("mutation_rate")
+	mutation_scale = dictionary.get("mutation_scale")
 	number_of_receptors = dictionary.get("number_of_receptors")
 	network_structure = dictionary.get("network_structure")

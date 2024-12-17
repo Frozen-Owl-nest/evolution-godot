@@ -83,25 +83,30 @@ class NeuralNetwork extends Node:
 			for neuron in layer.neurons:
 				neurons.append(neuron)
 
-	static func mutate1(network):
+	func mutate():
+		var mutation_chance = float(Global.mutation_rate) / 100
+		var mutation_scale = float(Global.mutation_scale) / 100
+
 		var new_layers = []
-		for layer in network.layers:
+		for layer in self.layers:
 			var new_neurons = []
 			for neuron in layer.neurons:
+				var new_bias = neuron.bias
+				if randf() < mutation_chance:
+					new_bias += (randf() * 2 - 1) * mutation_scale
 				var new_weights = []
-				var bias = neuron.bias
-				if randf() < float(Global.mutation_rate)/100:
-					bias += (randf() * 2 - 1)/2/5
 				for weight in neuron.weights:
 					var new_weight = weight
-					if randf() < float(Global.mutation_rate)/100:
-						new_weight += (randf() * 2 - 1)/20
+					if randf() < mutation_chance:
+						new_weight += (randf() * 2 - 1) * mutation_scale
 					new_weights.append(new_weight)
-				new_neurons.append(Neuron.new(bias, new_weights))
+
+				new_neurons.append(Neuron.new(new_bias, new_weights))
 			new_layers.append(Layer.new(new_neurons))
+
 		return NeuralNetwork.new(new_layers)
 
-func mutate2(network_1, network_2):
+static func mutate2(network_1, network_2):
 	var new_layers = []
 	for layers in zip(network_1.layers, network_2.layers):
 		var new_neurons = []
@@ -114,7 +119,7 @@ func mutate2(network_1, network_2):
 		new_layers.append(Layer.new(new_neurons))
 	return NeuralNetwork.new(new_layers)
 	
-func zip(list1, list2):
+static func zip(list1, list2):
 	var zipped = []
 	for i in range(min(len(list1), len(list2))):
 		zipped.append([list1[i], list2[i]])
