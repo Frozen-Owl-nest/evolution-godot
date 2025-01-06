@@ -34,12 +34,4 @@ func _on_export_data_dialog_file_selected(path):
 
 func _on_timer_timeout():
 	var path = "Experiment_" + str(Global.mutation_rate) + ".csv"
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	var time_series = get_node("/root/Scene/DataCollector").time_series
-	for row in time_series:
-		var line = ""
-		for value in row:
-			line+=str(value)+","
-		line = line.substr(0, line.length() - 1)
-		file.store_line(line)
-	file.close()
+	var time_series = get_node("/root/Scene/DataCollector").export_data(path)

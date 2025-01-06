@@ -88,7 +88,7 @@ func _on_number_of_spawned_food_text_changed():
 
 
 func _on_activation_function_input_item_selected(index):
-	Global.activation_method = index
+	Global.activation_method_index = index
 
 func _on_number_of_receptors_input_text_changed():
 	var text_field = get_node("AgentSettingsPanel/MainGridContainer/NumberOfReceptorsInput")
@@ -155,7 +155,7 @@ func load_settings():
 	get_node("WorldSettingsPanel/GridContainer/FoodSpawnIntervalInput").text = str(Global.spawn_interval)
 	get_node("WorldSettingsPanel/GridContainer/SpawnRadiusInput").text = str(Global.spawn_radius)
 	get_node("WorldSettingsPanel/GridContainer/NumberOfSpawnedFood").text = str(Global.spawned_food)
-	get_node("AgentSettingsPanel/MainGridContainer/ActivationFunctionInput").selected = Global.activation_method
+	get_node("AgentSettingsPanel/MainGridContainer/ActivationFunctionInput").selected = Global.activation_method_index
 	get_node("AgentSettingsPanel/MainGridContainer/NumberOfLayersInput").text = str(len(Global.network_structure))
 	get_node("AgentSettingsPanel/MainGridContainer/NumberOfReceptorsInput").text = str(Global.number_of_receptors)
 	get_node("AgentSettingsPanel/MainGridContainer/MutationRate").text = str(Global.mutation_rate)

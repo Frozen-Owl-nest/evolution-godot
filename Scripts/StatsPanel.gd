@@ -37,10 +37,17 @@ func _process(delta):
 			self.hide()
 
 func set_agent(agent):
+	"""
+	Assigns the given agent to be tracked and initializes UI elements to display its state.
+
+	Args:
+		agent (Agent): The agent instance to track. If null, clears the tracked agent.
+	"""
 	tracked_agent = agent
 	refresh_timer = 1
-	var neurons = agent.network.get_neurons()
-	for i in range(len(agent.receptors)):
-		self.get_child(1).get_child(i).set_receptor(agent.receptors[i])
-	for i in range(len(neurons)):
-		self.get_child(1).get_child(i + len(agent.receptors)).set_neuron(neurons[i])
+	if tracked_agent != null:
+		var neurons = agent.network.get_neurons()
+		for i in range(len(agent.receptors)):
+			self.get_child(1).get_child(i).set_receptor(agent.receptors[i])
+		for i in range(len(neurons)):
+			self.get_child(1).get_child(i + len(agent.receptors)).set_neuron(neurons[i])

@@ -33,7 +33,7 @@ func _ready():
 		ray.enabled = true
 
 func _physics_process(delta):
-	var output = network.get_output(get_receptors_data())
+	var output = network.get_output(get_signals())
 	age += delta
 	speed = output[0]/4 + 0.5
 	rotation_change = (output[1]*2-1) / 5
@@ -61,12 +61,29 @@ func _physics_process(delta):
 			body.subtract_energy(10)
 
 func get_colour(body):
+	"""
+	Determines the "color" signal based on the type of the object.
+	
+	Args:
+		body (Object): The object to evaluate.
+	
+	Returns:
+		int: 1 if the object is of type Food, -1 for other objects, and 0 if the body is null.
+	"""
 	if body != null:
 		if body.get_script() == Food:
 			return 1
+		else:
+			return -1
 	return 0
 
-func get_receptors_data():
+func get_signals():
+	"""
+	Collects signals from all receptors and returns them as an array.
+	
+	Returns:
+		Array: An array containing the colors corresponding to the objects the receptors collide with.
+	"""
 	var signals = []
 	for receptor in receptors:
 		signals.append(get_colour(receptor.get_collider()))

@@ -49,4 +49,5 @@ func _input(event):
 						target.call("on_click")
 			else:
 				var panel = get_node("/root/Scene/CanvasLayer/StatsPanel")
+				panel.set_agent(null)
 				panel.hide()
